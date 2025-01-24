@@ -205,6 +205,10 @@ const updateUserIntoDb = async (payload: IUser, id: string) => {
   return result;
 };
 
+const name=()=>{
+  
+}
+
 export const userService = {
   createUserIntoDb,
   getUsersFromDb,
