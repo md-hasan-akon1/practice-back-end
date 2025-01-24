@@ -206,7 +206,7 @@ const updateUserIntoDb = async (payload: IUser, id: string) => {
 };
 
 const name=()=>{
-  
+  console.log("object");
 }
 
 export const userService = {
