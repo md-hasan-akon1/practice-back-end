@@ -9,25 +9,35 @@ import { fileUploader } from "../../../helpars/fileUploader";
 const router = express.Router();
 
 // *!register user
-router.post(
-  "/register",
-  validateRequest(UserValidation.CreateUserValidationSchema),
-  userController.createUser
-);
+router
+  .post(
+    "/",
+    validateRequest(UserValidation.CreateUserValidationSchema),
+    userController.createUser
+  )
+  .get("/", userController.getUsers)
+  .put("/:id", userController.updateUser)
+  .patch(
+    "/profile",
+      // validateRequest(UserValidation.userUpdateSchema),
+    auth(UserRole.ADMIN, UserRole.USER),
+    fileUploader.uploadSingle,
+    userController.updateProfile
+  );
 // *!get all  user
-router.get("/", userController.getUsers);
+// router.get("/", userController.getUsers);
 
 // *!profile user
-router.put(
-  "/profile",
-  // validateRequest(UserValidation.userUpdateSchema),
+// router.patch(
+//   "/profile",
+//   // validateRequest(UserValidation.userUpdateSchema),
 
-  auth(UserRole.ADMIN, UserRole.USER),
-  fileUploader.uploadSingle,
-  userController.updateProfile
-);
+//   auth(UserRole.ADMIN, UserRole.USER),
+//   fileUploader.uploadSingle,
+//   userController.updateProfile
+// );
 
 // *!update  user
-router.put("/:id", userController.updateUser);
+// router.put("/:id", userController.updateUser);
 
 export const userRoutes = router;

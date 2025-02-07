@@ -26,6 +26,16 @@ model User {
   @@map("Users")
 }
 
+model Chat{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  senderId   String
+  receiverId String
+  message    String
+  createdAt  DateTime @default(now())
+
+  @@map("chats")
+}
 enum UserRole {
   ADMIN
   ARTIST

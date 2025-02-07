@@ -179,6 +179,12 @@ const updateUserIntoDb = async (payload: IUser, id: string) => {
   if (!userInfo)
     throw new ApiError(httpStatus.NOT_FOUND, "User not found with id: " + id);
 
+  if(payload.password){
+    payload.password = await bcrypt.hash(
+      payload.password,
+      Number(config.bcrypt_salt_rounds)
+    );
+  }
   const result = await prisma.user.update({
     where: {
       id: userInfo.id,
